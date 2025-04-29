@@ -525,29 +525,9 @@ export default function Home() {
                 </div>
                 <CardHeader>
                   <CardTitle className="text-white">
-                    Computer Vision for Medical Imaging
+                    Movie Recommender System
                   </CardTitle>
-                  <CardDescription className="text-zinc-400">
-                    Deep learning model for medical image analysis
-                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-zinc-400">
-                    Developed a CNN-based system for detecting abnormalities in
-                    medical scans with 95% accuracy, improving diagnostic
-                    capabilities.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-purple-500/20 text-purple-500 hover:bg-purple-500/10 hover:text-purple-400"
-                  >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    View Details
-                  </Button>
-                </CardFooter>
               </Card>
               <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/10">
                 <div className="relative h-48 overflow-hidden">
@@ -562,29 +542,9 @@ export default function Home() {
                 </div>
                 <CardHeader>
                   <CardTitle className="text-white">
-                    NLP for Customer Support
+                    LeadZen for Customer Support
                   </CardTitle>
-                  <CardDescription className="text-zinc-400">
-                    Automated response system using NLP
-                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-zinc-400">
-                    Built a transformer-based chatbot that handles customer
-                    inquiries, reducing response time by 60% and improving
-                    satisfaction.
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full border-pink-500/20 text-pink-500 hover:bg-pink-500/10 hover:text-pink-400"
-                  >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    View Details
-                  </Button>
-                </CardFooter>
               </Card>
               {/* <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10">
                 <div className="relative h-48 overflow-hidden">
