@@ -11,9 +11,11 @@ import {
   Loader,
   Mail,
   MapPin,
+  Menu,
   Phone,
   Send,
   Share2,
+  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -29,6 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -38,6 +41,17 @@ export default function Home() {
     subject: "",
     message: "",
   });
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const navLinks = [
+    { href: "#about", label: "About" },
+    { href: "#skills", label: "Skills" },
+    { href: "#projects", label: "Projects" },
+    { href: "#contact", label: "Contact" },
+  ];
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -99,48 +113,28 @@ export default function Home() {
                 Areesha Tariq
               </span>
             </Link>
+
+            {/* Desktop Navigation */}
             <nav className="hidden gap-6 md:flex">
-              <Link
-                href="#about"
-                className="flex items-center text-sm font-medium text-zinc-400 transition-colors hover:text-white"
-              >
-                About
-              </Link>
-              <Link
-                href="#skills"
-                className="flex items-center text-sm font-medium text-zinc-400 transition-colors hover:text-white"
-              >
-                Skills
-              </Link>
-              <Link
-                href="#projects"
-                className="flex items-center text-sm font-medium text-zinc-400 transition-colors hover:text-white"
-              >
-                Projects
-              </Link>
-              <Link
-                href="#contact"
-                className="flex items-center text-sm font-medium text-zinc-400 transition-colors hover:text-white"
-              >
-                Contact
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center text-sm font-medium text-zinc-400 transition-colors hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
           </div>
+
           <div className="flex items-center gap-2">
-            {/* <Link href="https://github.com" target="_blank" rel="noreferrer">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-zinc-400 hover:text-white hover:bg-zinc-800"
-              >
-                <Github className="h-4 w-4" />
-                <span className="sr-only">GitHub</span>
-              </Button>
-            </Link> */}
+            {/* Social Links */}
             <Link
               href="https://www.linkedin.com/in/areesha-tariq-795b92222"
               target="_blank"
               rel="noreferrer"
+              className="text-zinc-400 hover:text-white"
             >
               <Button
                 variant="ghost"
@@ -151,13 +145,59 @@ export default function Home() {
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
+
+            {/* Resume Button - Desktop */}
             <Button
               variant="outline"
               className="ml-4 hidden md:flex border-purple-500 text-purple-500 hover:bg-purple-500/10"
             >
               Download Resume
             </Button>
+
+            {/* Mobile Menu Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="ml-2 md:hidden text-zinc-400 hover:text-white hover:bg-zinc-800"
+              onClick={toggleMenu}
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
           </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <div
+          className={cn(
+            "fixed inset-x-0 top-16 z-40 bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/80 border-b border-zinc-800 transition-all duration-300 ease-in-out md:hidden",
+            isMenuOpen
+              ? "max-h-screen opacity-100"
+              : "max-h-0 opacity-0 pointer-events-none"
+          )}
+        >
+          <nav className="container flex flex-col py-4 space-y-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-zinc-400 transition-colors hover:text-white py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Button
+              variant="outline"
+              className="mt-4 w-full border-purple-500 text-purple-500 hover:bg-purple-500/10"
+            >
+              Download Resume
+            </Button>
+          </nav>
         </div>
       </header>
       <main className="flex-1">
@@ -172,8 +212,9 @@ export default function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent">
-                    Machine Learning Engineer
+                    Hi' I'm Areesha Tariq{" "}
                   </h1>
+                  {/* <span className="bg-transparent text-4xl">🤯</span> */}
                   <p className="max-w-[600px] text-zinc-400 md:text-xl">
                     Building intelligent systems that learn and adapt.
                     Specializing in deep learning, computer vision, and natural
@@ -198,13 +239,13 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex items-center justify-center">
-                <div className="relative w-full h-[550px] rounded-2xl overflow-hidden border border-zinc-800 shadow-xl shadow-purple-500/10">
+                <div className="relative w-full h-full rounded-full overflow-hidden border border-zinc-800 shadow-xl shadow-purple-500/10">
                   <Image
-                    src="/images/hero.png"
-                    width={600}
+                    src="/hero.jpeg"
+                    width={550}
                     height={550}
                     alt="Hero Image showing AI visualization"
-                    className="rounded-2xl object-cover w-full h-full"
+                    className="rounded-full object-cover w-full h-full"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -469,11 +510,12 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
+            {/* <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 py-12 md:grid-cols-2 lg:grid-cols-3"> */}
+            <div className="mx-auto grid max-w-5xl grid-cols-1 justify-items-center gap-8 py-12 md:grid-cols-2 lg:grid-cols-3">
               <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/project1.png"
+                    src="/img1.jpeg"
                     width={400}
                     height={200}
                     alt="Medical imaging project showing brain scan analysis"
@@ -510,7 +552,7 @@ export default function Home() {
               <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/10">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/project2.png"
+                    src="/img2.jpeg"
                     width={400}
                     height={200}
                     alt="NLP chatbot interface with conversation flow"
@@ -544,7 +586,7 @@ export default function Home() {
                   </Button>
                 </CardFooter>
               </Card>
-              <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10">
+              {/* <Card className="group overflow-hidden bg-zinc-950 border-zinc-800 transition-all duration-300 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/10">
                 <div className="relative h-48 overflow-hidden">
                   <Image
                     src="/images/project3.png"
@@ -690,7 +732,7 @@ export default function Home() {
                     View Details
                   </Button>
                 </CardFooter>
-              </Card>
+              </Card> */}
             </div>
           </div>
         </section>
